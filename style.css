@@ -1,0 +1,315 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ================================================
+   PAGE 1 — COUNTDOWN
+================================================ */
+#page1 {
+  position: fixed;
+  inset: 0;
+  background-color: #0A3323;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: opacity 1.6s ease;
+}
+
+#page1.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Twinkling stars */
+.stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50%       { opacity: 0.9;  transform: scale(1.4); }
+}
+
+/* Floating heart particles */
+.heart-float {
+  position: absolute;
+  opacity: 0;
+  font-size: var(--sz, 1.2rem);
+  animation: floatUp var(--fdur, 8s) var(--fdelay, 0s) infinite ease-in;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(0)   scale(1);   opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.1; }
+  100% { transform: translateY(-100vh) scale(0.6); opacity: 0; }
+}
+
+.cd-title {
+  font-family: 'Dancing Script', cursive;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  letter-spacing: 2px;
+  margin-bottom: 2.8rem;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.cd-container {
+  display: flex;
+  gap: clamp(0.6rem, 3vw, 2.5rem);
+  align-items: center;
+}
+
+.time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-value {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: clamp(3.2rem, 11vw, 7.5rem);
+  color: #fff;
+  line-height: 1;
+  min-width: 2ch;
+  text-align: center;
+  text-shadow: 0 0 40px rgba(255,255,255,0.15);
+}
+
+.time-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.55rem, 1.4vw, 0.8rem);
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+.time-sep {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  color: rgba(255, 255, 255, 0.3);
+  line-height: 1;
+  margin-bottom: 1.6rem;
+}
+
+.cd-subtitle {
+  font-family: 'Dancing Script', cursive;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+  margin-top: 2.8rem;
+  letter-spacing: 2px;
+}
+
+/* ================================================
+   PAGE 2 — LOVE LETTER
+================================================ */
+#page2 {
+  position: fixed;
+  inset: 0;
+  background-color: #D3968C;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 1.5rem 4rem;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 1.6s ease 0.6s;
+  overflow-y: auto;
+}
+
+#page2.visible {
+  opacity: 1;
+}
+
+/* Floating hearts for page 2 */
+.hearts-p2 {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heart-float-p2 {
+  position: absolute;
+  opacity: 0;
+  font-size: var(--sz, 1.2rem);
+  animation: floatUp var(--fdur, 8s) var(--fdelay, 0s) infinite ease-in;
+  pointer-events: none;
+}
+
+/* Soft ambient blobs */
+#page2::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 15%, rgba(255, 210, 195, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 85%, rgba(160, 90, 75, 0.3) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.letter-outer {
+  position: relative;
+  max-width: 680px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Wax-seal / envelope icon on top */
+.letter-icon {
+  text-align: center;
+  font-size: 2.6rem;
+  margin-bottom: -1rem;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+  animation: sealPulse 3s ease-in-out infinite;
+}
+
+@keyframes sealPulse {
+  0%, 100% { transform: scale(1);   }
+  50%       { transform: scale(1.08); }
+}
+
+/* ---- LINED PAPER ---- */
+:root {
+  --lh: 36px;
+}
+
+.letter-paper {
+  background-color: #F7F4D5;
+  border-radius: 2px;
+  position: relative;
+  padding: calc(var(--lh) * 2) 3.8rem calc(var(--lh) * 3) 4.8rem;
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.18),
+    0 12px 40px rgba(0,0,0,0.2),
+    0 40px 80px rgba(0,0,0,0.1);
+
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent                  0px,
+    transparent                  calc(var(--lh) - 1px),
+    #105666                      calc(var(--lh) - 1px),
+    #105666                      var(--lh)
+  );
+  background-attachment: local;
+  line-height: var(--lh);
+}
+
+/* Red margin line */
+.letter-paper::before {
+  content: '';
+  position: absolute;
+  left: 3.8rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(200, 100, 90, 0.35);
+  pointer-events: none;
+}
+
+/* Folded corner effect */
+.letter-paper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 36px 36px;
+  border-color: transparent transparent #e8e4c0 transparent;
+}
+
+/* ---- LETTER CONTENT ---- */
+.letter-date {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1rem;
+  color: #666;
+  text-align: right;
+  line-height: var(--lh);
+  margin-bottom: var(--lh);
+}
+
+.letter-greeting {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #2a2a2a;
+  line-height: var(--lh);
+  margin-bottom: var(--lh);
+}
+
+.letter-body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.08rem;
+  font-weight: 400;
+  color: #222;
+  line-height: var(--lh);
+  text-align: justify;
+}
+
+.letter-body p {
+  margin: 0 0 var(--lh);
+}
+
+.letter-body p:last-child {
+  margin-bottom: 0;
+}
+
+.letter-closing {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  color: #2a2a2a;
+  margin-top: var(--lh);
+  line-height: var(--lh);
+}
+
+.letter-signature {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.4rem;
+  color: #1a1a1a;
+  text-align: right;
+  margin-top: var(--lh);
+  line-height: var(--lh);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+  .letter-paper {
+    padding: calc(var(--lh) * 2) 1.8rem calc(var(--lh) * 2) 3rem;
+  }
+
+  .letter-paper::before {
+    left: 2.4rem;
+  }
+}
