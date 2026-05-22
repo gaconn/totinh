@@ -288,16 +288,6 @@ html, body {
     0 2px 8px rgba(0,0,0,0.18),
     0 12px 40px rgba(0,0,0,0.2),
     0 40px 80px rgba(0,0,0,0.1);
-
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent                  0px,
-    transparent                  calc(var(--lh) - 1px),
-    #105666                      calc(var(--lh) - 1px),
-    #105666                      var(--lh)
-  );
-  background-attachment: local;
-  line-height: var(--lh);
 }
 
 /* Red margin line */
@@ -331,7 +321,7 @@ html, body {
   font-size: 1rem;
   color: #666;
   text-align: right;
-  line-height: var(--lh);
+  line-height: 1.8;
   margin-bottom: var(--lh);
 }
 
@@ -340,18 +330,27 @@ html, body {
   font-size: 1.45rem;
   font-weight: 600;
   color: #2a2a2a;
-  line-height: var(--lh);
+  line-height: 1.4;
   margin-bottom: var(--lh);
 }
 
 .letter-body {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
-  font-size: 1.08rem;
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.05rem);
   font-weight: 400;
   color: #222;
-  line-height: var(--lh);
+  line-height: 2em;
   text-align: justify;
+  /* Dòng kẻ dùng em — tự động khớp với font-size ở mọi màn hình */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent calc(2em - 1px),
+    #105666     calc(2em - 1px),
+    #105666     2em
+  );
+  background-attachment: local;
 }
 
 .letter-body p {
@@ -367,7 +366,7 @@ html, body {
   font-size: 1.1rem;
   color: #2a2a2a;
   margin-top: var(--lh);
-  line-height: var(--lh);
+  line-height: 1.8;
 }
 
 .letter-signature {
@@ -376,7 +375,7 @@ html, body {
   color: #1a1a1a;
   text-align: right;
   margin-top: var(--lh);
-  line-height: var(--lh);
+  line-height: 1.2;
 }
 
 /* ---- Responsive ---- */
@@ -399,10 +398,6 @@ html, body {
 
   .letter-greeting {
     font-size: 1.15rem;
-  }
-
-  .letter-body {
-    font-size: 0.9rem;
   }
 
   .letter-closing {
