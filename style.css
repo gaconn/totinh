@@ -355,7 +355,7 @@ html, body {
 }
 
 .letter-body p {
-  margin: 0 0 var(--lh);
+  margin: 0;
 }
 
 .letter-body p:last-child {
