@@ -278,6 +278,8 @@ html, body {
 /* ---- LINED PAPER ---- */
 :root {
   --lh: 36px;
+  --body-font: 1rem;    /* 16px — số nguyên, không lệch */
+  --body-lh: 2rem;      /* 32px — gradient lặp đúng mỗi dòng */
 }
 
 .letter-paper {
@@ -338,18 +340,17 @@ html, body {
 .letter-body {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
-  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.05rem);
+  font-size: var(--body-font);
   font-weight: 400;
   color: #222;
-  line-height: 2em;
+  line-height: var(--body-lh);
   text-align: justify;
-  /* Dòng kẻ dùng em — tự động khớp với font-size ở mọi màn hình */
   background-image: repeating-linear-gradient(
     to bottom,
-    transparent 0px,
-    transparent calc(2em - 1px),
-    #105666     calc(2em - 1px),
-    #105666     2em
+    transparent                      0px,
+    transparent                      calc(var(--body-lh) - 1px),
+    #105666                          calc(var(--body-lh) - 1px),
+    #105666                          var(--body-lh)
   );
   background-attachment: local;
 }
@@ -383,6 +384,8 @@ html, body {
 @media (max-width: 600px) {
   :root {
     --lh: 30px;
+    --body-font: 0.875rem;  /* 14px */
+    --body-lh: 1.75rem;     /* 28px */
   }
 
   .letter-paper {
