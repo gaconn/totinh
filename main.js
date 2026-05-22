@@ -1,8 +1,9 @@
 // ================================================
 // Config
 // ================================================
-const TARGET_DATE = new Date(Date.now() + 1 * 10 * 1000); // TEST: 1 phút sau khi load
-// const TARGET_DATE = new Date('2026-06-12T09:00:00+07:00'); // PRODUCTION
+// const TARGET_DATE = new Date(Date.now() + 1 * 10 * 1000); // TEST: 1 phút sau khi load
+const TARGET_DATE = new Date('2026-06-12T09:00:00+07:00'); // PRODUCTION
+const UNLOCK_PASSWORD = '612'; // ← đổi mật khẩu tại đây
 const STAR_COUNT        = 90;
 const HEART_COUNT       = 12;
 const HEART_CHARS       = ['♥', '❤', '💕', '💗', '💓'];
@@ -113,6 +114,15 @@ function updateDisplay(time) {
   document.getElementById('seconds').textContent = pad(time ? time.seconds : 0);
 }
 
+function revealLetterElements() {
+  const els = document.querySelectorAll('.letter-reveal');
+  els.forEach((el, i) => {
+    setTimeout(() => {
+      el.classList.add('visible');
+    }, i * 600);
+  });
+}
+
 function transitionToLetter(timerId) {
   clearInterval(timerId);
   initPageTwoHearts();
@@ -121,6 +131,7 @@ function transitionToLetter(timerId) {
   setTimeout(() => {
     document.getElementById('page1').style.display = 'none';
     document.body.style.overflow = 'auto';
+    revealLetterElements();
   }, 2400);
 }
 
@@ -135,6 +146,27 @@ function startCountdown() {
 
   tick();
   timerId = setInterval(tick, 1000);
+  initUnlock(() => timerId);
+}
+
+function initUnlock(getTimerId) {
+  const input = document.getElementById('unlockInput');
+  const btn   = document.getElementById('unlockBtn');
+  const hint  = document.getElementById('unlockHint');
+
+  function tryUnlock() {
+    if (input.value === UNLOCK_PASSWORD) {
+      transitionToLetter(getTimerId());
+    } else {
+      hint.textContent = 'Sai rồi ơi... thử lại đi ♡';
+      input.value = '';
+      input.focus();
+      setTimeout(() => { hint.textContent = ''; }, 2000);
+    }
+  }
+
+  btn.addEventListener('click', tryUnlock);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
 }
 
 // ================================================

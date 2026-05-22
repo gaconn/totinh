@@ -126,6 +126,67 @@ html, body {
   letter-spacing: 2px;
 }
 
+/* Unlock row */
+.cd-unlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 3rem;
+}
+
+.cd-unlock__input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  outline: none;
+  color: #fff;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  text-align: center;
+  width: 140px;
+  padding: 0.3rem 0.5rem;
+  letter-spacing: 4px;
+  caret-color: rgba(255,255,255,0.6);
+  transition: border-color 0.3s;
+}
+
+.cd-unlock__input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 6px;
+}
+
+.cd-unlock__input:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.6);
+}
+
+.cd-unlock__btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1.1rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s, transform 0.2s;
+  line-height: 1;
+}
+
+.cd-unlock__btn:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.cd-unlock__hint {
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.85rem;
+  color: rgba(255, 120, 120, 0.8);
+  min-height: 1.2em;
+  letter-spacing: 1px;
+}
+
 /* ================================================
    PAGE 2 — LOVE LETTER
 ================================================ */
@@ -180,6 +241,7 @@ html, body {
   max-width: 680px;
   width: 100%;
   margin-top: 2rem;
+  z-index: 1;
 }
 
 /* Wax-seal / envelope icon on top */
@@ -196,6 +258,20 @@ html, body {
 @keyframes sealPulse {
   0%, 100% { transform: scale(1);   }
   50%       { transform: scale(1.08); }
+}
+
+/* ---- Letter reveal animation ---- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.letter-reveal {
+  opacity: 0;
+}
+
+.letter-reveal.visible {
+  animation: fadeInUp 0.7s ease forwards;
 }
 
 /* ---- LINED PAPER ---- */
@@ -305,11 +381,35 @@ html, body {
 
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
+  :root {
+    --lh: 30px;
+  }
+
   .letter-paper {
-    padding: calc(var(--lh) * 2) 1.8rem calc(var(--lh) * 2) 3rem;
+    padding: calc(var(--lh) * 2) 1.6rem calc(var(--lh) * 2) 2.8rem;
   }
 
   .letter-paper::before {
-    left: 2.4rem;
+    left: 2.2rem;
+  }
+
+  .letter-date {
+    font-size: 0.85rem;
+  }
+
+  .letter-greeting {
+    font-size: 1.15rem;
+  }
+
+  .letter-body {
+    font-size: 0.9rem;
+  }
+
+  .letter-closing {
+    font-size: 0.95rem;
+  }
+
+  .letter-signature {
+    font-size: 1.9rem;
   }
 }
